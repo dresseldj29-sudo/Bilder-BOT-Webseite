@@ -1,5 +1,7 @@
 const http = require("node:http");
 const https = require("node:https");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const PORT = Number(process.env.PORT || 3000);
 const TARGET = process.env.BOT_DASHBOARD_URL || "https://dc-bilder-production.up.railway.app";
@@ -14,6 +16,18 @@ try {
 }
 
 const server = http.createServer((req, res) => {
+  if (req.method === "GET" && req.url === "/setup") {
+    try {
+      const html = fs.readFileSync(path.join(__dirname, "index.html"));
+      res.writeHead(200, { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" });
+      return res.end(html);
+    } catch (error) {
+      console.error("[SETUP] Seite konnte nicht geladen werden:", error.message);
+      res.writeHead(500, { "content-type": "text/plain; charset=utf-8" });
+      return res.end("Setup-Seite konnte nicht geladen werden.");
+    }
+  }
+
   if (req.url === "/health") {
     res.writeHead(200, { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" });
     return res.end(JSON.stringify({ ok: true, service: "bilder-bot-webseite", proxyTarget: target.host }));
