@@ -1,0 +1,12 @@
+{
+  "name": "bilder-bot-webseite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Konfigurations-Dashboard für den Bilder-BOT",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
