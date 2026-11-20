@@ -1,0 +1,12 @@
+{
+  "name": "bilder-bot-webseite",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Bilder-BOT Control Center",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
